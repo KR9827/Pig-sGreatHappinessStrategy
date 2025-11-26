@@ -232,11 +232,10 @@ void SceneGame::IntroUpdate()
 			m_gameState = GameState::Game;
 			m_isCountdown = false;
 			m_rules->ResetIsEndRules();
+			m_iconManager->m_iconCounter2.restart();
 
 			playedSE = false;
 		}
-
-		
 	}
 }
 
@@ -248,7 +247,6 @@ void SceneGame::GameUpdate()
 	m_iconManager->Update();
 	m_player->Update();
 	m_farmer->Update();
-
 
 	// 結果が出た通知を受け取った時
 	if (m_iconManager->GetIsResultMoment())
@@ -282,7 +280,6 @@ void SceneGame::GameUpdate()
 
 			return;									// ここが読まれたらOutroに遷移するので以降は読まなくていい
 		}
-
 	}
 
 	// 残り時間が60秒になった時
@@ -418,6 +415,7 @@ void SceneGame::draw() const
 	
 	//Print << m_favorabilityValue;
 	//Print << m_shippingValue;
+	Print << m_iconManager->m_iconCounter2;
 }
 
 // イントロの描画処理

@@ -27,7 +27,7 @@ public:
 
 private:
 	static constexpr double INTRO_TIME{ 4.0 };					// イントロの時間：3秒
-	static constexpr double TIME_LIMIT{ 70.0 };					// ゲームの制限時間：2分半
+	static constexpr double TIME_LIMIT{ 150.0 };					// ゲームの制限時間：2分半
 	static constexpr double CHANGE_MOOD_TIME{ 60.0 };			// 好感度と出荷度のどちらが優位かを判断する時間
 	static constexpr double TIME_UP_COUNTER_LIMIT{ 300.0 };		// タイムアップ時のカウンター制限時間
 

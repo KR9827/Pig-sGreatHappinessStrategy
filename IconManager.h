@@ -31,12 +31,16 @@ public:
 	bool GetIsSuccess() const { return m_isSuccess; }											// 成功したかを通知
 	bool GetIsShipping() const { return m_isShipping; }											// 即出荷かを通知
 
+	Stopwatch m_iconCounter2;							// アイコン出現のカウント
 
 private:
-	static constexpr int32 WAIT_COUNT{ 500 };						// アイコンが表示されるまでの待機時間
-	static constexpr int32 TIME_LIMIT_REACTION{ 600 };				// プレイヤーのリアクションを受け付ける時間
-	static constexpr int32 PLAYER_REACT_DISPLAY{ 400 };				// プレイヤーが反応した時のアイコンの表示時間
-	static constexpr int32 RESULT_DISPLAY{ 500 };					// 結果アイコンの表示時間
+	Duration m_waitCount = Random(3.0s, 5.0s);						// アイコンが表示されるまでの待機時間
+	Duration m_timeLimitReaction{ 4.0s };							// プレイヤーのリアクションを受け付ける時間
+	Duration m_playerReactDisplay{ 4.0s };							// プレイヤーが反応した時のアイコンの表示時間
+	Duration m_resultDisplay{ 3.0s };								// 結果アイコンの表示時間
+	static constexpr int32 TIME_LIMIT_REACTION{ 600 };				
+	static constexpr int32 PLAYER_REACT_DISPLAY{ 400 };				
+	static constexpr int32 RESULT_DISPLAY{ 500 };					
 
 	// 各状態時の更新処理関数
 	void WaitingUpdate();
@@ -63,7 +67,8 @@ private:
 	Vec2 m_farmerIconPos;								// 養豚業者のアイコンの座標
 	Vec2 m_playerIconPos;								// プレイヤーのアイコンの座標
 
-	int32 m_iconCounter;								// アイコン出現のカウント
+	//int32 m_iconCounter;								
+	
 	int32 m_farmerIconIndex;							// 養豚業者の出すアイコンの番号
 	int32 m_farmerReactIconIndex;						// 養豚業者が結果時に出すアイコンの番号
 	int32 m_playerReactIconIndex;						// プレイヤーが出すアイコンの番号

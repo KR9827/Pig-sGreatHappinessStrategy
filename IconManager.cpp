@@ -13,7 +13,6 @@ IconManager::IconManager(std::shared_ptr<UIManager> ui, std::shared_ptr<AudioMan
 	,m_audio(audio)
 	,m_farmerIconPos(0, 0)
 	,m_playerIconPos(0, 0)
-	,m_iconCounter(0)
 	,m_farmerIconIndex(0)
 	,m_playerReactIconIndex(-1)
 	,m_farmerReactIconIndex(-1)
@@ -67,8 +66,6 @@ bool IconManager::SystemInit()
 void IconManager::GameInit()
 {
 	m_currentState = IconState::Waiting;
-
-	m_iconCounter = 0;
 	m_farmerIconIndex = 0;
 	m_playerReactIconIndex = -1;
 	m_farmerReactIconIndex = -1;
@@ -78,12 +75,6 @@ void IconManager::GameInit()
 
 void IconManager::Update()
 {
-	ClearPrint();
-	Print << m_iconCounter;
-	Print << static_cast<int32>(m_currentState);	// 仮
-	Print << m_farmerIconPos;
-
-	m_iconCounter++;								// アイコンの時間管理用カウンター
 	m_isResultMomment = false;						// 毎フレームfalseにする
 
 	switch (m_currentState)
@@ -116,12 +107,12 @@ void IconManager::WaitingUpdate()
 	const int32 minCount{ -100 };
 	const int32 maxCount{ 200 };
 
-	if (m_iconCounter > WAIT_COUNT + Random(minCount, maxCount))
+	if (m_iconCounter2 > m_waitCount)
 	{
 		m_farmerIconIndex = static_cast<int32>(Random(m_farmerIcons.size() - 1));
-		//m_farmerIconIndex = 9;
 		m_currentState = IconState::FarmerIcon;
-		m_iconCounter = 0;
+		m_iconCounter2.restart();
+		m_waitCount = Random(3.0s, 5.0s);
 	}
 }
 
@@ -135,12 +126,12 @@ void IconManager::FarmerIconUpdate()
 	m_uiManager->RequestDraw(icon, m_farmerIconPos, scale);					// アイコンの描画
 
 	// リアクションせずに時間切れになった場合
-	if (m_iconCounter > TIME_LIMIT_REACTION)
+	if (m_iconCounter2 > m_timeLimitReaction)
 	{
 		m_currentState = IconState::Result;
 		m_uiManager->ClearDrawRequests();
 		JudgeReaction();
-		m_iconCounter = 0;
+		m_iconCounter2.restart();
 	}
 }
 
@@ -153,12 +144,12 @@ void IconManager::PlayerReactionUpdate()
 	m_uiManager->RequestDraw(m_playerActionIcon, m_playerIconPos);			// 吹き出しの描画
 	m_uiManager->RequestDraw(icon, m_playerIconPos, scale);					// アイコンの描画
 
-	if (m_iconCounter > PLAYER_REACT_DISPLAY)
+	if (m_iconCounter2 > m_playerReactDisplay)
 	{
 		m_currentState = IconState::Result;
 		m_uiManager->ClearDrawRequests();
 		JudgeReaction();													// 成功か判断
-		m_iconCounter = 0;
+		m_iconCounter2.restart();
 	}
 }
 
@@ -178,12 +169,12 @@ void IconManager::ResultUpdate()
 	m_uiManager->RequestDraw(m_farmerResultIcon, m_farmerIconPos);			// 吹き出しの描画
 	m_uiManager->RequestDraw(icon, m_farmerIconPos, scale);					// アイコンの描画
 
-	if (m_iconCounter > RESULT_DISPLAY)
+	if (m_iconCounter2 > m_resultDisplay)
 	{
 		m_currentState = IconState::Waiting;
 		m_uiManager->ClearDrawRequests();
 		m_isResultMomment = true;
-		m_iconCounter = 0;
+		m_iconCounter2.restart();
 		m_playerReactIconIndex = -1;										// プレイヤーがリアクションをしなかった場合の判定のために戻す
 		m_farmerReactIconIndex = -1;										// 念のため
 	}
@@ -224,7 +215,6 @@ void IconManager::OnPlayerReaction(const int32 index)
 	m_playerReactIconIndex = index;
 
 	m_currentState = IconState::PlayerReaction;
-	m_iconCounter = 0;
 }
 
 // 成功か失敗か判断する関数
