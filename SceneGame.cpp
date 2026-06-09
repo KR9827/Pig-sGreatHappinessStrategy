@@ -347,7 +347,7 @@ void SceneGame::OutroUpdate()
 	// タイムアップの演出（即出荷の時は読まない）
 	if (m_isTimeUp)
 	{
-		m_timeUpCounter++;
+		m_timeUpCounter += Scene::DeltaTime();
 		if (m_timeUpCounter > TIME_UP_COUNTER_LIMIT)
 		{
 			m_isTimeUp = false;
@@ -357,7 +357,7 @@ void SceneGame::OutroUpdate()
 	// 終了の演出をしてリザルト画面に遷移
 	else
 	{
-		m_truckPos.x += 2;
+		m_truckPos.x += 200 * Scene::DeltaTime();
 		if (m_truckPos.x > Scene::Center().x)
 		{
 			m_truckPos.x = Scene::Center().x;
