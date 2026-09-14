@@ -29,7 +29,7 @@ private:
 	static constexpr double INTRO_TIME{ 4.0 };					// イントロの時間：3秒
 	static constexpr double TIME_LIMIT{ 150.0 };					// ゲームの制限時間：2分半
 	static constexpr double CHANGE_MOOD_TIME{ 60.0 };			// 好感度と出荷度のどちらが優位かを判断する時間
-	static constexpr double TIME_UP_COUNTER_LIMIT{ 300.0 };		// タイムアップ時のカウンター制限時間
+	static constexpr double TIME_UP_COUNTER_LIMIT{ 3.0 };		// タイムアップ時のカウンター制限時間
 
 	// 各状態の更新処理
 	void IntroUpdate();
@@ -72,7 +72,7 @@ private:
 	double m_timerGame;										// デルタタイムで時間を取得
 	Font m_fontTimerGame;									// ゲーム中に使う時間を描画するフォント
 
-	int32 m_timeUpCounter;									// タイムアップ時のカウンター
+	double m_timeUpCounter;									// タイムアップ時のカウンター
 	bool m_isTimeUp;										// タイムアップしたかどうかのフラグ
 	Font m_fontTimeUp;										// タイムアップの文字を描画するフォント
 

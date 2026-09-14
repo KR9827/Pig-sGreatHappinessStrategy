@@ -415,7 +415,7 @@ void SceneGame::draw() const
 	
 	//Print << m_favorabilityValue;
 	//Print << m_shippingValue;
-	Print << m_iconManager->m_iconCounter2;
+	//Print << m_iconManager->m_iconCounter2;
 }
 
 // イントロの描画処理
@@ -476,7 +476,7 @@ void SceneGame::ApplyReactionResult(bool flag)
 	}
 	else
 	{
-		m_shippingValue += 15;					// 出荷度を10加算
+		m_shippingValue += 15;					// 出荷度を15加算
 	}
 
 	// 値を制限

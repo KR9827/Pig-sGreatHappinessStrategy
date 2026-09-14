@@ -49,7 +49,6 @@ bool IconManager::SystemInit()
 	m_farmerReactionIcons << Texture{ U"❤️"_emoji };				// 成功時
 	m_farmerReactionIcons << Texture{ U"❤️‍🔥"_emoji };				// 大成功時
 	m_farmerReactionIcons << Texture{ U"🍴"_emoji };				// 失敗時
-	//m_farmerReactionIcons << Texture{ U"🚛"_emoji };				// 大失敗時
 
 	// プレイヤーがリアクション時に出すアイコン群
 	m_playerReactionIcons << Texture{ U"💘"_emoji };				// ラブ
