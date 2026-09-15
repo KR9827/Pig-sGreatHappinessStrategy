@@ -4,12 +4,12 @@
 <table border="0">
   <tr>
     <td align="center" width="50%">
-      <b>AA</b><br>
-      <img src="" alt="AA" width="100%">
+      <b>成功</b><br>
+      <img src="App/gif/Success.gif" alt="成功" width="100%">
     </td>
     <td align="center" width="50%">
-      <b>AA</b><br>
-      <img src="" alt="AA" width="100%">
+      <b>失敗</b><br>
+      <img src="App/gif/Fail.gif" alt="失敗" width="100%">
     </td>
   </tr>
 </table>
